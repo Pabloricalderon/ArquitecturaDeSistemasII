@@ -11,4 +11,4 @@
 ![Aplicacion](imagenes/aplicacion%20desde%20cloudfront.png)
 
 ## URL pública de CloudFront
-(d1z9gn07exriuj.cloudfront.net)
+https://d1z9gn07exriuj.cloudfront.net
