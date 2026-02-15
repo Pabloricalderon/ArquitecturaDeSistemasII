@@ -8,6 +8,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: assignment-02-app
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -17,6 +21,7 @@ jobs:
         with:
           node-version: "20"
           cache: "npm"
+          cache-dependency-path: assignment-02-app/package-lock.json
 
       - name: Install
         run: npm ci
@@ -32,8 +37,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Upload dist to S3
-        run: |
-          aws s3 sync dist s3://${{ secrets.S3_BUCKET }} --delete
+        run: aws s3 sync dist s3://${{ secrets.S3_BUCKET }} --delete
 
       - name: Invalidate CloudFront
         run: |
