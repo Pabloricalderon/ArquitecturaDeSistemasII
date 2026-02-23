@@ -1,10 +1,8 @@
 
-
 ## Captura de la aplicación
 
 ![Captura de la aplicación](./docs/app.png)
 
----
 
 ## URL pública (AWS Elastic Beanstalk)
 - **Environment URL:** http://landing-page-env.eba-mk5bhmet.us-west-2.elasticbeanstalk.com
@@ -17,17 +15,14 @@ Esto ayuda a mantener el código consistente y evita subir commits con errores d
 
 
 
-
-
-
 ##  Capturas requeridas 
 ### 1) AWS Elastic Beanstalk (Environment)
 ![EB Dashboard](./docs/eb-dashboard.png)
 
 ### 2) Configuración de Elastic Beanstalk
-![EB Config](./docs/Beanstalk 1.png)
-![EB Config2](./docs/Beanstalk 2.png)
-![EB Config3](./docs/Beanstalk 3.png)
+![EB Config](./docs/Beanstalk%201.png)
+![EB Config2](./docs/Beanstalk%2.png)
+![EB Config3](./docs/Beanstalk%3.png)
 
 
 
