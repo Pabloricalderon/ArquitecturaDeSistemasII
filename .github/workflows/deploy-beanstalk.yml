@@ -2,7 +2,7 @@ name: Deploy Docker to Elastic Beanstalk
 
 on:
   push:
-    branches: [ "assignment-03" ]
+    branches: ["assignment-03"]
 
 jobs:
   deploy:
@@ -18,23 +18,28 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
-      # Acción oficial para credenciales :contentReference[oaicite:1]{index=1}
 
       - name: Login to Amazon ECR
-        id: ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build and push Docker image
+      - name: Build and push Docker image (from subfolder)
         env:
           AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           ECR_REPO: ${{ secrets.ECR_REPO }}
           GIT_SHA: ${{ github.sha }}
         run: |
+          set -e
           IMAGE_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO}:${GIT_SHA}"
           echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
 
-          docker build -t "$IMAGE_URI" .
+          echo "Repo root contents:"
+          ls -la
+
+          echo "Subfolder contents:"
+          ls -la assignment-03-eb-landing
+
+          docker build -t "$IMAGE_URI" -f assignment-03-eb-landing/Dockerfile assignment-03-eb-landing
           docker push "$IMAGE_URI"
 
       - name: Create Dockerrun.aws.json (v1)
@@ -52,8 +57,8 @@ jobs:
           }
           EOF
 
-          # reemplazar placeholder
           sed -i "s|__IMAGE_URI__|${IMAGE_URI}|g" Dockerrun.aws.json
+          cat Dockerrun.aws.json
 
       - name: Create deployment bundle
         run: |
