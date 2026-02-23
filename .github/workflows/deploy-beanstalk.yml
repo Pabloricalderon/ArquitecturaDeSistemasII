@@ -1,0 +1,69 @@
+name: Deploy Docker to Elastic Beanstalk
+
+on:
+  push:
+    branches: [ "assignment-03" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      # Acción oficial para credenciales :contentReference[oaicite:1]{index=1}
+
+      - name: Login to Amazon ECR
+        id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push Docker image
+        env:
+          AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          ECR_REPO: ${{ secrets.ECR_REPO }}
+          GIT_SHA: ${{ github.sha }}
+        run: |
+          IMAGE_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO}:${GIT_SHA}"
+          echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
+
+          docker build -t "$IMAGE_URI" .
+          docker push "$IMAGE_URI"
+
+      - name: Create Dockerrun.aws.json (v1)
+        run: |
+          cat > Dockerrun.aws.json << 'EOF'
+          {
+            "AWSEBDockerrunVersion": "1",
+            "Image": {
+              "Name": "__IMAGE_URI__",
+              "Update": "true"
+            },
+            "Ports": [
+              { "ContainerPort": "80" }
+            ]
+          }
+          EOF
+
+          # reemplazar placeholder
+          sed -i "s|__IMAGE_URI__|${IMAGE_URI}|g" Dockerrun.aws.json
+
+      - name: Create deployment bundle
+        run: |
+          zip -r deploy.zip Dockerrun.aws.json
+
+      - name: Deploy to Elastic Beanstalk
+        uses: einaregilsson/beanstalk-deploy@v22
+        with:
+          application_name: ${{ secrets.EB_APP_NAME }}
+          environment_name: ${{ secrets.EB_ENV_NAME }}
+          region: ${{ secrets.AWS_REGION }}
+          version_label: ${{ github.sha }}
+          deployment_package: deploy.zip
