@@ -21,8 +21,8 @@ Esto ayuda a mantener el código consistente y evita subir commits con errores d
 
 ### 2) Configuración de Elastic Beanstalk
 ![EB Config](./docs/Beanstalk%201.png)
-![EB Config2](./docs/Beanstalk%2.png)
-![EB Config3](./docs/Beanstalk%3.png)
+![EB Config2](./docs/Beanstalk%202.png)
+![EB Config3](./docs/Beanstalk%203.png)
 
 
 
