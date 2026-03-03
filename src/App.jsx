@@ -13,8 +13,8 @@ export default function App() {
   return (
     <div className="page">
       <header className="hero">
-        <div className="badge">ASSIGNMENT-04</div>
-        <h1>Landing Page Dockerizada (React + Vite)</h1>
+        <div className="badge">ASSIGNMENT-04 (segunda subida)</div>
+        <h1>Landing Page Dockerizada 2.0 (React + Vite)</h1>
         <p>
           Aplicación web <strong>estática</strong> con interfaz agradable.
           Objetivo: construir imagen Docker y publicarla en Docker Hub con CI/CD.
