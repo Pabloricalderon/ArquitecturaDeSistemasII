@@ -1,12 +1,18 @@
+require("dotenv").config()
+
+const { swaggerUi, specs } = require("./swagger")
 const express = require("express")
 const cors = require("cors")
 const { PrismaClient } = require("@prisma/client")
 
+
 const app = express()
+
 const prisma = new PrismaClient()
 
 app.use(cors())
 app.use(express.json())
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs))
 
 app.get("/", (req, res) => {
   res.json({ message: "API Checklist funcionando" })
@@ -37,6 +43,9 @@ app.put("/products/:id", async (req, res) => {
 
   res.json(product)
 })
+
+
+
 
 app.listen(4000, () => {
   console.log("Server running on port 4000")
