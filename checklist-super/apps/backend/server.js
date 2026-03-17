@@ -1,6 +1,5 @@
 require("dotenv").config()
 
-const { swaggerUi, specs } = require("./swagger")
 const express = require("express")
 const cors = require("cors")
 const { PrismaClient } = require("@prisma/client")
@@ -13,7 +12,6 @@ const HOST = "0.0.0.0"
 
 app.use(cors())
 app.use(express.json())
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs))
 
 app.get("/", (req, res) => {
   res.json({ message: "API Checklist funcionando" })
@@ -22,9 +20,9 @@ app.get("/", (req, res) => {
 app.get("/health", async (req, res) => {
   try {
     await prisma.$queryRaw`SELECT 1`
-    res.json({ ok: true, db: true })
+    res.status(200).json({ ok: true, db: true })
   } catch (error) {
-    console.error("Health check error:", error)
+    console.error("Health error:", error)
     res.status(500).json({ ok: false, db: false, error: error.message })
   }
 })
