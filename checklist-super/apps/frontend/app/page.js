@@ -5,8 +5,10 @@ export default function Home() {
   const [products, setProducts] = useState([])
   const [name, setName] = useState("")
 
+  const API_URL = "https://arquitecturadesistemasii-production.up.railway.app"
+
   const fetchProducts = async () => {
-    const res = await fetch("http://localhost:4000/products")
+    const res = await fetch(`${API_URL}/products`)
     const data = await res.json()
     setProducts(data)
   }
@@ -16,7 +18,7 @@ export default function Home() {
   }, [])
 
   const addProduct = async () => {
-    await fetch("http://localhost:4000/products", {
+    await fetch(`${API_URL}/products`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -29,7 +31,7 @@ export default function Home() {
   }
 
   const completeProduct = async (id) => {
-    await fetch(`http://localhost:4000/products/${id}`, {
+    await fetch(`${API_URL}/products/${id}`, {
       method: "PUT"
     })
 
