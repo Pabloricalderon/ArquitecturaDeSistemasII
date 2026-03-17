@@ -83,6 +83,24 @@ export default function Home() {
       setError("No se pudo actualizar el producto")
     }
   }
+  const deleteProduct = async (id) => {
+  try {
+    setError("")
+
+    const res = await fetch(`${API_URL}/products/${id}`, {
+      method: "DELETE"
+    })
+
+    if (!res.ok) {
+      throw new Error(`Error ${res.status}`)
+    }
+
+    fetchProducts()
+  } catch (err) {
+    console.error("Error eliminando producto:", err)
+    setError("No se pudo eliminar el producto")
+  }
+}
 
   return (
     <main style={{ padding: "2rem", fontFamily: "Arial" }}>
@@ -104,16 +122,32 @@ export default function Home() {
       <ul>
         {products.map((p) => (
           <li key={p.id} style={{ marginBottom: "0.5rem" }}>
-            {p.name} {p.completed ? "✔" : ""}
-            {!p.completed && (
-              <button
-                onClick={() => completeProduct(p.id)}
-                style={{ marginLeft: "0.5rem" }}
-              >
-                Comprar
-              </button>
-            )}
-          </li>
+  {p.name} {p.completed ? "✔" : ""}
+
+  {!p.completed && (
+    <button
+      onClick={() => completeProduct(p.id)}
+      style={{ marginLeft: "0.5rem" }}
+    >
+      Comprar
+    </button>
+  )}
+
+  <button
+    onClick={() => deleteProduct(p.id)}
+    style={{
+      marginLeft: "0.5rem",
+      backgroundColor: "#dc2626",
+      color: "white",
+      border: "none",
+      padding: "0.4rem 0.7rem",
+      borderRadius: "6px",
+      cursor: "pointer"
+    }}
+  >
+    Eliminar
+  </button>
+</li>
         ))}
       </ul>
     </main>

@@ -74,6 +74,21 @@ app.put("/products/:id", async (req, res) => {
   }
 })
 
+app.delete("/products/:id", async (req, res) => {
+  try {
+    const id = Number(req.params.id)
+
+    await prisma.product.delete({
+      where: { id }
+    })
+
+    res.json({ message: "Producto eliminado correctamente" })
+  } catch (error) {
+    console.error("DELETE /products/:id error:", error)
+    res.status(500).json({ error: "No se pudo eliminar el producto" })
+  }
+})
+
 app.listen(PORT, HOST, () => {
   console.log(`Server running on http://${HOST}:${PORT}`)
 })
