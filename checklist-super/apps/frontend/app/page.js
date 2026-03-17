@@ -38,7 +38,7 @@ export default function Home() {
 
   return (
     <main>
-      <h1>Checklist del Super</h1>
+      <h1>Checklist del Supermercado</h1>
 
       <input
         value={name}
