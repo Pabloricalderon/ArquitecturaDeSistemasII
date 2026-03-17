@@ -86,7 +86,7 @@ export default function Home() {
 
   return (
     <main style={{ padding: "2rem", fontFamily: "Arial" }}>
-      <h1>Checklist del Supermercado</h1>
+      <h1>Checklist del SUPERMERCADO</h1>
 
       <div style={{ margin: "1rem 0" }}>
         <input
