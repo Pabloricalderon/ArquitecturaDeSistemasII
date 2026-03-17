@@ -5,4 +5,4 @@ https://arquitectura-de-sistemas-ii.vercel.app
 https://arquitecturadesistemasii-production-5778.up.railway.app
 
 ## Captura de la base de datos
-![Database migration screenshot showing terminal output of successful migration commands, including table creations and field definitions for the Arquitectura de Sistemas II project.](/docs/ScreenshotMigrations.jpeg)
+![Migrations](docs/ScreenshotMigrations.png)
