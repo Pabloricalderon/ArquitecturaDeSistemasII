@@ -13,7 +13,7 @@
 
 ## Dominios configurados
 
-```txt
+
 app.ricardo-calderon.com
 argo.ricardo-calderon.com
 
