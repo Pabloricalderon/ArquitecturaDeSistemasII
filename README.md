@@ -12,13 +12,12 @@
 - GitHub
 
 ## Dominios configurados
-
-
+```txt
 app.ricardo-calderon.com
 argo.ricardo-calderon.com
-
+```
 ## Comandos ejecutados
-´´´txt
+```txt
 git checkout main
 git pull origin main
 git checkout -b assignment-08
@@ -47,15 +46,16 @@ kubectl apply -f k8s/semana4-app/
 kubectl get pods -A
 kubectl get svc -A
 kubectl get ingressroute -A
-´´´txt
+```
 ## Manifiestos de aplicaciones
+```txt
 k8s/namespaces.yaml
 k8s/traefik/traefik-values.yaml
 k8s/argocd/argocd-ingressroute.yaml
 k8s/semana4-app/deployment.yaml
 k8s/semana4-app/service.yaml
 k8s/semana4-app/ingressroute.yaml
-
+```
 ## Evidencias
 ![Aplicación con DNS local](./docs/Aplicacion%20con%20dominio.png)
 ![ArgoCD con dominio local](./docs/ArgoCD%20con%20dominio.png)
