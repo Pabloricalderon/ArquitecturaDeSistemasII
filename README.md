@@ -18,6 +18,7 @@ app.ricardo-calderon.com
 argo.ricardo-calderon.com
 
 ## Comandos ejecutados
+´´´txt
 git checkout main
 git pull origin main
 git checkout -b assignment-08
@@ -46,7 +47,7 @@ kubectl apply -f k8s/semana4-app/
 kubectl get pods -A
 kubectl get svc -A
 kubectl get ingressroute -A
-
+´´´txt
 ## Manifiestos de aplicaciones
 k8s/namespaces.yaml
 k8s/traefik/traefik-values.yaml
